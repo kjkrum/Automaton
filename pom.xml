@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.kjkrum</groupId>
+	<artifactId>Automaton</artifactId>
+	<version>1.12</version>
+	<name>Automaton</name>
+	<description>DFA/NFA regular expression matcher and lexical analyzer</description>
+	<url>https://github.com/kjkrum/Automaton</url>
+	<licenses>
+		<license>
+			<name>Modified BSD License</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+	    <sourceDirectory>${project.basedir}/src</sourceDirectory>
+	    <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.6</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
