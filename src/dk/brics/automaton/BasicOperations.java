@@ -2,6 +2,7 @@
  * dk.brics.automaton
  * 
  * Copyright (c) 2001-2011 Anders Moeller
+ * Copyright (c) 2012-2013 Kevin Krumwiede
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -304,6 +305,14 @@ final public class BasicOperations {
 		while (worklist.size() > 0) {
 			p = worklist.removeFirst();
 			p.s.accept = p.s1.accept && p.s2.accept;
+			
+			if(p.s1.info != null && p.s2.info == null) {
+				p.s.info = p.s1.info;
+			}
+			else if(p.s2.info != null && p.s1.info == null) {
+				p.s.info = p.s2.info;
+			}
+						
 			Transition[] t1 = transitions1[p.s1.number];
 			Transition[] t2 = transitions2[p.s2.number];
 			for (int n1 = 0, b2 = 0; n1 < t1.length; n1++) {
@@ -470,11 +479,13 @@ final public class BasicOperations {
 		while (worklist.size() > 0) {
 			Set<State> s = worklist.removeFirst();
 			State r = newstate.get(s);
-			for (State q : s)
+			for (State q : s) {
 				if (q.accept) {
 					r.accept = true;
+					r.info = q.info;
 					break;
 				}
+			}
 			for (int n = 0; n < points.length; n++) {
 				Set<State> p = new HashSet<State>();
 				for (State q : s)

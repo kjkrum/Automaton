@@ -1,3 +1,13 @@
+1.11-8 -> 1.12
+==============
+- added info fields to State and RunAutomaton to associate accepting states
+  with arbitrary objects, e.g. token identities
+- modified BasicOperations to preserve info fields through intersection and
+  determinize operations
+- modified Automaton to preserve info fields through clone operations
+- added TokenAutomaton, TokenDetails, and TokenRegExp
+- added JUnit tests for TokenAutomaton
+
 1.11-7 -> 1.11-8
 ================
 - caching of isDebug, to avoid synchronized call to System.getProperty - thanks to G. Lundh

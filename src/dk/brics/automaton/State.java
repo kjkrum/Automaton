@@ -2,6 +2,7 @@
  * dk.brics.automaton
  * 
  * Copyright (c) 2001-2011 Anders Moeller
+ * Copyright (c) 2012-2013 Kevin Krumwiede
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -46,9 +47,8 @@ public class State implements Serializable, Comparable<State> {
 	
 	boolean accept;
 	Set<Transition> transitions;
-	
+	Object info;
 	int number;
-	
 	int id;
 	static int next_id;
 	
@@ -98,6 +98,27 @@ public class State implements Serializable, Comparable<State> {
 	 */
 	public boolean isAccept() {
 		return accept;
+	}
+	
+	public int getNumber() {
+		return number;
+	}
+	
+	/**
+	 * Sets the extra info for this state.
+	 * @param info
+	 * @return
+	 */
+	public void setInfo(Object info) {
+		this.info = info;
+	}
+	
+	/**
+	 * Gets the extra info for this state.
+	 * @return
+	 */
+	public Object getInfo() {
+		return info;
 	}
 	
 	/** 
@@ -157,10 +178,13 @@ public class State implements Serializable, Comparable<State> {
 		StringBuilder b = new StringBuilder();
 		b.append("state ").append(number);
 		if (accept)
-			b.append(" [accept]");
+			b.append(" [accept]: ");
 		else
-			b.append(" [reject]");
-		b.append(":\n");
+			b.append(" [reject]: ");
+		if(info != null) {
+			b.append(info.toString());
+		}
+		b.append("\n");
 		for (Transition t : transitions)
 			b.append("  ").append(t.toString()).append("\n");
 		return b.toString();

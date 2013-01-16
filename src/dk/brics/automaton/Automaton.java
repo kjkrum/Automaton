@@ -1,7 +1,8 @@
 /*
- * dk.brics.automaton
+ * Automaton (dk.brics.automaton)
  * 
  * Copyright (c) 2001-2011 Anders Moeller
+ * Copyright (c) 2012-2013 Kevin Krumwiede
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -643,6 +644,7 @@ public class Automaton implements Serializable, Cloneable {
 				for (State s : states) {
 					State p = m.get(s);
 					p.accept = s.accept;
+					p.info = s.info;
 					if (s == initial)
 						a.initial = p;
 					for (Transition t : s.transitions)

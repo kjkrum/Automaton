@@ -2,6 +2,7 @@
  * dk.brics.automaton
  * 
  * Copyright (c) 2001-2011 Anders Moeller
+ * Copyright (c) 2012-2013 Kevin Krumwiede
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +47,7 @@ import java.util.Set;
  */
 public class RunAutomaton implements Serializable {
 
-	static final long serialVersionUID = 20001;
+	static final long serialVersionUID = 5318008; // changed KK
 
 	int size;
 	boolean[] accept;
@@ -54,6 +55,7 @@ public class RunAutomaton implements Serializable {
 	int[] transitions; // delta(state,c) = transitions[state*points.length + getCharClass(c)]
 	char[] points; // char interval start points
 	int[] classmap; // map from char number to class class
+	Object[] info;
 
 	/** 
 	 * Sets alphabet table for optimal run performance. 
@@ -78,9 +80,13 @@ public class RunAutomaton implements Serializable {
 		for (int i = 0; i < size; i++) {
 			b.append("state " + i);
 			if (accept[i])
-				b.append(" [accept]:\n");
+				b.append(" [accept]: ");
 			else
-				b.append(" [reject]:\n");
+				b.append(" [reject]: ");
+			if(info[i] != null) {
+				b.append(info[i].toString());
+			}
+			b.append("\n");
 			for (int j = 0; j < points.length; j++) {
 				int k = transitions[i * points.length + j];
 				if (k != -1) {
@@ -117,6 +123,15 @@ public class RunAutomaton implements Serializable {
 		return accept[state];
 	}
 
+	/**
+	 * Gets extra info for given state.
+	 * @param state
+	 * @return
+	 */
+	public Object getInfo(int state) {
+		return info[state];
+	}
+	
 	/** 
 	 * Returns initial state. 
 	 */
@@ -138,9 +153,6 @@ public class RunAutomaton implements Serializable {
 	int getCharClass(char c) {
 		return SpecialOperations.findIndex(c, points);
 	}
-
-	@SuppressWarnings("unused")
-	private RunAutomaton() {}
 
 	/**
 	 * Constructs a new <code>RunAutomaton</code> from a deterministic
@@ -208,11 +220,13 @@ public class RunAutomaton implements Serializable {
 		size = states.size();
 		accept = new boolean[size];
 		transitions = new int[size * points.length];
+		info = new Object[size];
 		for (int n = 0; n < size * points.length; n++)
 			transitions[n] = -1;
 		for (State s : states) {
 			int n = s.number;
 			accept[n] = s.accept;
+			info[n] = s.info;
 			for (int c = 0; c < points.length; c++) {
 				State q = s.step(points[c]);
 				if (q != null)

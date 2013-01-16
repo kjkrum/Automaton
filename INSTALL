@@ -1,2 +1,2 @@
-The jar and javadoc files can be built using 'ant'.
-(The source package includes pre-built files.)
+This project can be built with the command 'mvn install'.
+
