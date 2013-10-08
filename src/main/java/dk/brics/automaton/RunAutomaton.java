@@ -126,7 +126,7 @@ public class RunAutomaton implements Serializable {
 	/**
 	 * Gets extra info for given state.
 	 * @param state
-	 * @return
+	 * @return info object
 	 */
 	public Object getInfo(int state) {
 		return info[state];
@@ -160,7 +160,11 @@ public class RunAutomaton implements Serializable {
 	 * @param a an automaton
 	 */
 	public RunAutomaton(Automaton a) {
-		this(a, true);
+		this(a, true, false);
+	}
+	
+	public RunAutomaton(Automaton a, boolean tableize) {
+		this(a, tableize, false);
 	}
 
 	/**
@@ -208,13 +212,15 @@ public class RunAutomaton implements Serializable {
 	 * <code>Automaton</code>. If the given automaton is not deterministic,
 	 * it is determinized first.
 	 * @param a an automaton
-	 * @param tableize if true, a transition table is created which makes the <code>run</code> 
-	 *                 method faster in return of a higher memory usage
+	 * @param tableize if true, a transition table is created which makes the
+	 * <code>run</code> method faster in return of a higher memory usage
+	 * @param ordered if true, gets the automaton's states in an ordered
+	 * collection
 	 */
-	public RunAutomaton(Automaton a, boolean tableize) {
+	public RunAutomaton(Automaton a, boolean tableize, boolean ordered) {
 		a.determinize();
 		points = a.getStartPoints();
-		Set<State> states = a.getStates();
+		Set<State> states = a.getStates(ordered);
 		Automaton.setStateNumbers(states);
 		initial = a.initial.number;
 		size = states.size();

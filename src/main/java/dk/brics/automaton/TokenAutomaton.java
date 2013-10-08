@@ -36,6 +36,11 @@ import java.io.ObjectInputStream;
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RunAutomaton;
 
+/**
+ * An automaton that can be used as a lexical analyzer.
+ * 
+ * @author Kevin Krumwiede
+ */
 public class TokenAutomaton extends RunAutomaton {
 	private static final long serialVersionUID = 1L;
 
@@ -61,7 +66,8 @@ public class TokenAutomaton extends RunAutomaton {
 	 * {@link TokenDetails#UNDERFLOW} if a longer accepted run is possible.
 	 * 
 	 * @param details the object in which to return the token details
-	 * @return
+	 * @return true if a match is found and no longer match is possible;
+	 * otherwise false
 	 * @see dk.brics.automaton.State#setInfo(Object)
 	 * @see dk.brics.automaton.RunAutomaton#getInfo(int)
 	 */
@@ -123,6 +129,10 @@ public class TokenAutomaton extends RunAutomaton {
 		}
 		return false;
 	}
+	
+	public TokenAutomaton(Automaton a, boolean tableize, boolean ordered) {
+		super(a, tableize, ordered);
+	}	
 		
 	public TokenAutomaton(Automaton a, boolean tableize) {
 		super(a, tableize);

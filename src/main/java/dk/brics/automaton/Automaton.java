@@ -139,7 +139,7 @@ public class Automaton implements Serializable, Cloneable {
 		singleton = null;
 	}
 	
-	boolean isDebug() {
+	static boolean isDebug() {
 		if (is_debug == null)
 			is_debug = Boolean.valueOf(System.getProperty("dk.brics.automaton.debug") != null);
 		return is_debug.booleanValue();
@@ -264,12 +264,14 @@ public class Automaton implements Serializable, Cloneable {
 	
 	/** 
 	 * Returns the set of states that are reachable from the initial state.
+	 * @param ordered if true, states will be returned in a deterministically
+	 * ordered collection
 	 * @return set of {@link State} objects
 	 */
-	public Set<State> getStates() {
+	public Set<State> getStates(boolean ordered) {
 		expandSingleton();
 		Set<State> visited;
-		if (isDebug())
+		if (ordered)
 			visited = new LinkedHashSet<State>();
 		else
 			visited = new HashSet<State>();
@@ -279,7 +281,7 @@ public class Automaton implements Serializable, Cloneable {
 		while (worklist.size() > 0) {
 			State s = worklist.removeFirst();
 			Collection<Transition> tr;
-			if (isDebug())
+			if (ordered)
 				tr = s.getSortedTransitions(false);
 			else
 				tr = s.transitions;
@@ -290,6 +292,14 @@ public class Automaton implements Serializable, Cloneable {
 				}
 		}
 		return visited;
+	}
+	
+	/** 
+	 * Returns the set of states that are reachable from the initial state.
+	 * @return set of {@link State} objects
+	 */
+	public Set<State> getStates() {
+		return getStates(isDebug());
 	}
 	
 	/** 
@@ -836,7 +846,7 @@ public class Automaton implements Serializable, Cloneable {
 	/**
 	 * See {@link BasicOperations#concatenate(List)}.
 	 */
-	static public Automaton concatenate(List<Automaton> l) {
+	public static Automaton concatenate(List<Automaton> l) {
 		return BasicOperations.concatenate(l);
 	}
 
@@ -906,7 +916,7 @@ public class Automaton implements Serializable, Cloneable {
 	/**
 	 * See {@link BasicOperations#union(Collection)}.
 	 */
-	static public Automaton union(Collection<Automaton> l) {
+	public static Automaton union(Collection<Automaton> l) {
 		return BasicOperations.union(l);
 	}
 

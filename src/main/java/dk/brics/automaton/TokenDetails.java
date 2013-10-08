@@ -32,8 +32,8 @@ package dk.brics.automaton;
 /**
  * Data structure for returning token info from a <tt>TokenAutomaton</tt>.
  *
- * @author Kevin Krumwiede (kjkrum@gmail.com)
- * @see TokenAutomaton#find(TokenDetails, boolean)
+ * @author Kevin Krumwiede
+ * @see TokenAutomaton#find(CharSequence, int, boolean, TokenDetails)
  */
 public class TokenDetails {
 	/**

@@ -36,6 +36,8 @@ import java.util.Map;
  * automatons in which the info field of the accepting states is set to the
  * info object specified in the <tt>TokenRegExp</tt> constructor.  This is
  * just a convenient shortcut for doing the same thing externally.
+ * 
+ * @author Kevin Krumwiede
  */
 public class TokenRegExp extends RegExp {
 	

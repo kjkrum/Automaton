@@ -1,3 +1,8 @@
+1.12 -> 1.12.1
+==============
+- added Automaton#getStates(boolean ordered)
+- added RunAutomaton(Automaton a, boolean tableize, boolean ordered)
+
 1.11-8 -> 1.12
 ==============
 - added info fields to State and RunAutomaton to associate accepting states

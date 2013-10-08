@@ -107,7 +107,6 @@ public class State implements Serializable, Comparable<State> {
 	/**
 	 * Sets the extra info for this state.
 	 * @param info
-	 * @return
 	 */
 	public void setInfo(Object info) {
 		this.info = info;
@@ -115,7 +114,7 @@ public class State implements Serializable, Comparable<State> {
 	
 	/**
 	 * Gets the extra info for this state.
-	 * @return
+	 * @return info object
 	 */
 	public Object getInfo() {
 		return info;
