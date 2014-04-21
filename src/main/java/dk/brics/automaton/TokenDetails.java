@@ -39,13 +39,13 @@ public class TokenDetails {
 	/**
 	 * Indicates that no match is possible.
 	 */
-	public static final Object NO_MATCH = (Object) "NO_MATCH";
+	public static final Object NO_MATCH = "NO_MATCH";
 	
 	/**
 	 * Indicates that a match extends to the end of the character sequence and
 	 * could be longer.
 	 */
-	public static final Object UNDERFLOW = (Object) "UNDERFLOW";
+	public static final Object UNDERFLOW = "UNDERFLOW";
 	
 	/**
 	 * The character sequence containing the token.

@@ -351,7 +351,7 @@ final public class StringUnionOperations {
 	 * Add a suffix of <code>current</code> starting at <code>fromIndex</code>
 	 * (inclusive) to state <code>state</code>.
 	 */
-	private void addSuffix(State state, CharSequence current, int fromIndex) {
+	private static void addSuffix(State state, CharSequence current, int fromIndex) {
 		final int len = current.length();
 		for (int i = fromIndex; i < len; i++) {
 			state = state.newState(current.charAt(i));
